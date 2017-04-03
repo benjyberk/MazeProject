@@ -8,10 +8,11 @@ namespace SearchAlgorithmsLib
 {
     public class Solution<T>
     {
-        T description
-        { 
-            get;
-            set;
-        }
+        List<State<T>> solutionPath;
+        
+        public Solution(List<State<T>> path)
+        {
+            solutionPath = path;
+        } 
     }
 }

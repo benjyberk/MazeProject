@@ -9,12 +9,23 @@ namespace SearchAlgorithmsLib
     public class State<T>
     {
         private T state;
-        private double cost;
-        private State<T> predecessor;
+
+        public State<T> predecessor
+        {
+            get;
+            set;
+        }
+
+        public double cost
+        {
+            get;
+            set;
+        }
 
         public State(T inputState)
         {
             state = inputState;
+            predecessor = null;
         }
 
         public override bool Equals(object obj)

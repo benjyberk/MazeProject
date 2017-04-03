@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SearchAlgorithmsLib
 {
-    interface ISearchable<T>
+    public interface ISearchable<T>
     {
         State<T> getInitialState();
         State<T> getGoalState();

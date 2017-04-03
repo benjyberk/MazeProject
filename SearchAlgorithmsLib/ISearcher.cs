@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace SearchAlgorithmsLib
 {
-    interface ISearcher<T>
+    public interface ISearcher<T>
     {   
         // The searcher has the ability to search through a given domain
-        Solution search(ISearchable<T> domain);
+        Solution<T> search(ISearchable<T> domain);
 
         // Returns the amount of elements examined by the search method
         int getNumberOfEvaluations();
