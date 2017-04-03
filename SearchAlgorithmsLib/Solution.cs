@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace SearchAlgorithmsLib
 {
-    public class Solution
+    public class Solution<T>
     {
-        string description
-        {
+        T description
+        { 
             get;
             set;
         }
