@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SearchAlgorithmsLib
 {
+    /*
+     * An interface which defines the necessary elements for a 'Searching' algorithm
+     */
     public interface ISearcher<T>
     {   
         // The searcher has the ability to search through a given domain

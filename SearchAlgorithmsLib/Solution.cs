@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace SearchAlgorithmsLib
 {
+    /*
+     * A solution holds the collection of states that leads to the final result.
+     */
     public class Solution<T>
     {
-        List<State<T>> solutionPath;
+        public List<State<T>> solutionPath
+        {
+            get;
+        }
         
         public Solution(List<State<T>> path)
         {
