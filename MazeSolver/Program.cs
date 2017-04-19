@@ -13,10 +13,10 @@ namespace MazeSolver
     {
         static void Main(string[] args)
         {
-            BestFirstSearcher<Position> bfs = new BestFirstSearcher<Position>();
-            DepthFirstSearcher<Position> dfs = new DepthFirstSearcher<Position>();
+            ISearcher<Position> bfs = new BestFirstSearcher<Position>();
+            ISearcher<Position> dfs = new DepthFirstSearcher<Position>();
             DFSMazeGenerator mazeMaker = new DFSMazeGenerator();
-            Maze m = mazeMaker.Generate(30, 30);
+            Maze m = mazeMaker.Generate(25, 25);
             SearchableMaze maze = new SearchableMaze(m);
             maze.print();
 
@@ -26,7 +26,7 @@ namespace MazeSolver
             }
             else
             {
-                Console.WriteLine(":(");
+                Console.WriteLine("No solution found!");
             }
 
             if (dfs.search(maze) != null)
@@ -35,7 +35,7 @@ namespace MazeSolver
             }
             else
             {
-                Console.WriteLine(":(");
+                Console.WriteLine("No solution found!");
             }
 
         }

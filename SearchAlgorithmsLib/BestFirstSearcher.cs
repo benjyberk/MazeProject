@@ -78,7 +78,7 @@ namespace SearchAlgorithmsLib
                 // solution
                 if (nextNode.Equals(domain.getGoalState()))
                 {
-                    Console.WriteLine("Reached BFS end" + nextNode.state.ToString());
+                    //Console.WriteLine("Reached BFS end at point " + nextNode.state.ToString());
                     return backtrace(nextNode);
                 }
 
@@ -107,7 +107,7 @@ namespace SearchAlgorithmsLib
                     }
                 }
             }
-
+            // If we reach here, there is no path to the destination
             return null;
         }
 

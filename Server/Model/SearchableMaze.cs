@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SearchAlgorithmsLib;
 using MazeLib;
 
-namespace MazeSolver
+namespace Server
 {
     /*
      * The class adapts the Maze class to become 'Searchable' (Adapter design pattern).
@@ -83,6 +83,18 @@ namespace MazeSolver
             return retList;
         }
 
+        // Converts the contained maze to JSON
+        public string toJSON()
+        {
+            return maze.ToJSON();
+        }
+
+        // Converts the contained maze to string
+        public override string ToString()
+        {
+            return maze.ToString();
+        }
+
         /*
          * A simple printing method that parses the maze and translates it into 0s representing
          * valid pathways, 1 representing walls, * representing the start point and # representing
@@ -103,7 +115,7 @@ namespace MazeSolver
                     {
                         oneLine += "*";
                     }
-                    else if (maze[i,j] == CellType.Free)
+                    else if (maze[i, j] == CellType.Free)
                     {
                         oneLine += "0";
                     }

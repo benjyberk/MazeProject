@@ -17,6 +17,7 @@ namespace SearchAlgorithmsLib
                 backlist.Add(next);
                 next = next.predecessor;
             }
+            backlist.Reverse();
             Solution<T> result = new Solution<T>(backlist);
             return result;
         }

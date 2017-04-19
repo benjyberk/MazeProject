@@ -10,7 +10,7 @@ namespace SearchAlgorithmsLib
      * The state class holds the details related to a single stage in a search.
      * The state itself is determined by the provided type T
      */
-    public class State<T>
+    public class State<T> : IEquatable<State<T>>
     {
         public T state
         {
@@ -41,15 +41,20 @@ namespace SearchAlgorithmsLib
         }
 
         // States can be compared to other states - in order to tell when a 'final' state is reached
-        public override bool Equals(object obj)
+        /*public override bool Equals(object obj)
         {
             return state.Equals(((State<T>)obj).state);
-        }
+        }*/
 
         // We assume that the internal state has a HashCode
         public override int GetHashCode()
         {
             return state.GetHashCode();
+        }
+
+        public bool Equals(State<T> other)
+        {
+            return state.Equals(other.state);
         }
     }
 }

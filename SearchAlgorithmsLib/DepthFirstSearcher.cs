@@ -45,10 +45,11 @@ namespace SearchAlgorithmsLib
                 // If we reach the goal, we return our path using the backtracer provided
                 if (node.Equals(domain.getGoalState()))
                 {
-                    Console.WriteLine("Reached BFS end" + node.state.ToString());
+                    //Console.WriteLine("Reached DFS end at point " + node.state.ToString());
                     return backtrace(node);
                 }
 
+                // If we haven't reached the goal, we add all possible successors to the stack
                 if (!closedList.Contains(node))
                 {
                     closedList.Add(node);
@@ -59,6 +60,7 @@ namespace SearchAlgorithmsLib
                     }
                 }
             }
+            // If we reach here, there is no path to the destination
             return null;
         }
     }
