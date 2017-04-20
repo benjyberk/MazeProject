@@ -14,11 +14,13 @@ namespace Server
     public class SearchableMaze : ISearchable<Position>
     {
         private Maze maze;
+        private string name;
 
         // The maze itself is given a parameter
-        public SearchableMaze(Maze maze)
+        public SearchableMaze(Maze maze, string name)
         {
             this.maze = maze;
+            this.name = name;
         }
 
 

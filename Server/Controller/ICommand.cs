@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Server.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
@@ -9,6 +10,6 @@ namespace Server
 {
     public interface ICommand
     {
-        string Execute(string[] args, TcpClient client = null);
+        Result Execute(string[] args, TcpClient client = null);
     }
 }

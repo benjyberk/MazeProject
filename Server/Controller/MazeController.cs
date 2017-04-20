@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Server.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,13 +20,13 @@ namespace Server
             commands = new Dictionary<string, ICommand>();
         }
 
-        public string ExecuteCommand(string command, TcpClient client)
+        public Result ExecuteCommand(string command, TcpClient client)
         {
             string[] comArr = command.Split(' ');
             string key = comArr[0];
             if (!commands.ContainsKey(key))
             {
-                return JsonConvert.SerializeObject(new Error("That command doesn't exist"));
+                return Error.makeError("That command doesn't exist");
             }
             string[] args = comArr.Skip(1).ToArray();
             ICommand executable = commands[key];

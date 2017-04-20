@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Server.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace Server.Controller
             this.model = model;
         }
 
-        public string Execute(string[] args, TcpClient client = null)
+        public Result Execute(string[] args, TcpClient client = null)
         {
             SearchableMaze maze;
             string returnLine;
@@ -38,15 +39,15 @@ namespace Server.Controller
                 }
                 catch
                 {
-                    returnLine = JsonConvert.SerializeObject(new Error("Invalid row/column parameters"));
+                    return Error.makeError("Invalid row/column parameters");
                 }
             }
             else
             {
-                returnLine = JsonConvert.SerializeObject(new Error("Not enough parameters"));
+                return Error.makeError("Not enough parameters");
             }
 
-            return returnLine;
+            return new Result(returnLine, false);
         }
     }
 }

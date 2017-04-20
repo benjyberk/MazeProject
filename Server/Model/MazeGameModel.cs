@@ -30,7 +30,7 @@ namespace Server
         public SearchableMaze GenerateMaze(string name, int rows, int cols)
         {
             Maze m = new Maze(rows, cols);
-            SearchableMaze maze = new SearchableMaze(m);
+            SearchableMaze maze = new SearchableMaze(m, name);
             // The maze is saved in the database
             singlePlayerMazes.Add(name, maze);
 
