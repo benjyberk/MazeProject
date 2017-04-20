@@ -9,7 +9,7 @@ using System.Configuration;
 
 namespace Server.View
 {
-    class MazeConsoleView : IView
+    public class MazeConsoleView : IView
     {
         private int port;
         private IPEndPoint ip;

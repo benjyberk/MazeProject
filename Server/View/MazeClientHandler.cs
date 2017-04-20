@@ -18,23 +18,28 @@ namespace Server.View
                 StreamReader reader = new StreamReader(stream);
                 StreamWriter writer = new StreamWriter(stream);
                 Result result = null;
-                try
+                do
                 {
-                    string commandLine = reader.ReadLine();
-                    Console.WriteLine("Got command: {0}", commandLine);
-                    result = control.ExecuteCommand(commandLine, client);
-                    writer.Write(result.resultString);
-                }
-                finally
-                {
-                    if (!result.keepOpen)
+                    try
                     {
-                        writer.Dispose();
-                        reader.Dispose();
-                        stream.Dispose();
-                        client.Close();
+                        string commandLine = reader.ReadLine();
+                        Console.WriteLine("Got command: {0}", commandLine);
+                        result = control.ExecuteCommand(commandLine, client);
+                        writer.Write(result.resultString);
+                        writer.Flush();
                     }
-                }
+                    finally
+                    {
+                        if (!result.keepOpen)
+                        {
+                            writer.Dispose();
+                            reader.Dispose();
+                            stream.Dispose();
+                            client.Close();
+                        }
+                    }
+                } while (result.keepOpen);
+
             }).Start();
         }
     }
