@@ -14,34 +14,50 @@ namespace Client
     {
         static void Main(string[] args)
         {
-            IPAddress tempIP = IPAddress.Parse(ConfigurationManager.AppSettings["ip"]);
-            int port = int.Parse(ConfigurationManager.AppSettings["port"]);
-            IPEndPoint ip = new IPEndPoint(tempIP, port);
-            TcpClient client = new TcpClient();
+            Client client = new Client();
+            client.start();
+            Console.ReadKey();
+        }
 
-            NetworkStream stream = null;
-            BinaryReader reader = null;
-            BinaryWriter writer = null;
-
-            while (true)
+        private static Task clientMessageTask(ref StreamWriter writer)
+        {
+            StreamWriter s = writer;
+            Task t = new Task(() =>
             {
-                if (!client.Connected)
+                while (true)
                 {
-                    client.Connect(ip);
-                    Console.WriteLine("You are connected");
-                    stream = client.GetStream();
-                    reader = new BinaryReader(stream);
-                    writer = new BinaryWriter(stream);
+                    Console.Write("Please enter a command: ");
+                    string command = Console.ReadLine();
+                    Console.WriteLine("You entered the command: {0}", command);
+
+                    s.WriteLine(command);
+                    s.Flush();
                 }
-                // Send data to server
-                Console.Write("Please enter a command: ");
-                string command = Console.ReadLine();
-                writer.Write(command);
-                writer.Flush();
-                // Get result from server
-                string result = reader.ReadString();
-                Console.WriteLine("Result = {0}", result);
-            }
+            });
+
+            return t;
+        }
+
+        private static Task clientListenTask(StreamReader reader)
+        {
+            Task t = new Task(() =>
+            {
+                while (true)
+                {
+                    string result = reader.ReadLine();
+                    while (result != null)
+                    {
+                        // Get result from server
+                        result = reader.ReadLine();
+
+                        Console.WriteLine("Result = {0}", result);
+
+                    }
+                }
+            });
+
+            return t;
         }
     }
 }
+

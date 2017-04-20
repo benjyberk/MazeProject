@@ -15,6 +15,7 @@ namespace Server.View
         private IPEndPoint ip;
         private TcpListener listener;
         private IController controller;
+        private Task task;
 
         public MazeConsoleView(IController control)
         {
@@ -36,7 +37,7 @@ namespace Server.View
             listener.Start();
 
             // We start the 'listening server' task
-            Task task = new Task(() => {
+            task = new Task(() => {
                 while (true)
                 {
                     try
@@ -53,6 +54,11 @@ namespace Server.View
                 Console.WriteLine("Server stopped");
             });
             task.Start();
+        }
+
+        public void wait()
+        {
+            task.Wait();
         }
 
         public void stop()

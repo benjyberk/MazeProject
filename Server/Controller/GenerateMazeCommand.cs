@@ -15,7 +15,7 @@ namespace Server.Controller
      */
     class GenerateMazeCommand : ICommand
     {
-        IModel model;
+        private IModel model;
 
         public GenerateMazeCommand(IModel model)
         {
@@ -34,11 +34,13 @@ namespace Server.Controller
                 {
                     rows = int.Parse(args[1]);
                     cols = int.Parse(args[2]);
+
                     maze = model.GenerateMaze(mazeName, rows, cols);
                     returnLine = maze.toJSON();
                 }
-                catch
+                catch (Exception e)
                 {
+                    Console.WriteLine(e.Message);
                     return Error.makeError("Invalid row/column parameters");
                 }
             }

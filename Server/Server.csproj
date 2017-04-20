@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MazeGeneratorLib">
+      <HintPath>..\..\..\..\university\advanced programming 2\ex1\MazeGeneratorLib.dll</HintPath>
+    </Reference>
     <Reference Include="MazeLib">
       <HintPath>..\..\..\..\university\advanced programming 2\ex1\MazeLib.dll</HintPath>
     </Reference>

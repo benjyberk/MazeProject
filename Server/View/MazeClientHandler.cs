@@ -28,10 +28,15 @@ namespace Server.View
                         writer.Write(result.resultString);
                         writer.Flush();
                     }
+                    catch
+                    {
+                        break;
+                    }
                     finally
                     {
-                        if (!result.keepOpen)
+                        if (result == null || !result.keepOpen)
                         {
+                            Console.WriteLine("Closing Socket");
                             writer.Dispose();
                             reader.Dispose();
                             stream.Dispose();

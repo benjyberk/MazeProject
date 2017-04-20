@@ -11,11 +11,11 @@ namespace Server
     {
         static void Main(string[] args)
         {
-            IController controller = new MazeController();
             IModel model = new MazeGameModel();
-            IView view = new MazeConsoleView(controller);
+            IController controller = new MazeController(model);
+            MazeConsoleView view = new MazeConsoleView(controller);
             view.start();
-            Console.ReadKey();
+            view.wait();
         }
     }
 }

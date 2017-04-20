@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Server.Controller;
 using Server.View;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,10 @@ namespace Server
         private IModel model;
         private IView view;
 
-        public MazeController()
+        public MazeController(IModel model)
         {
             commands = new Dictionary<string, ICommand>();
+            commands.Add("generate", new GenerateMazeCommand(model));
         }
 
         public Result ExecuteCommand(string command, TcpClient client)

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MazeLib;
 using System.Net.Sockets;
 using SearchAlgorithmsLib;
+using MazeGeneratorLib;
 
 namespace Server
 {
@@ -14,10 +15,12 @@ namespace Server
         private Dictionary<string, SearchableMaze> singlePlayerMazes;
         private Dictionary<string, Solution<Position>> singlePlayerSolutions;
         private BestFirstSearcher<Position> bfs;
-        private DepthFirstSearcher<Position> dfs; 
+        private DepthFirstSearcher<Position> dfs;
+        private DFSMazeGenerator mazeMaker; 
 
         public MazeGameModel()
         {
+            mazeMaker = new DFSMazeGenerator();
             singlePlayerMazes = new Dictionary<string, SearchableMaze>();
             singlePlayerSolutions = new Dictionary<string, Solution<Position>>();
             bfs = new BestFirstSearcher<Position>();
@@ -29,7 +32,7 @@ namespace Server
          */
         public SearchableMaze GenerateMaze(string name, int rows, int cols)
         {
-            Maze m = new Maze(rows, cols);
+            Maze m = mazeMaker.Generate(rows, cols);
             SearchableMaze maze = new SearchableMaze(m, name);
             // The maze is saved in the database
             singlePlayerMazes.Add(name, maze);
