@@ -11,7 +11,7 @@ namespace Server
     public interface IController
     {
         Result ExecuteCommand(string command, TcpClient client);
-        void setModel(IModel model);
-        void setView(IView view);
+        void SetModel(IModel model);
+        void SetView(IView view);
     }
 }

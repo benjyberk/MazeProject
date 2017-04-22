@@ -9,6 +9,10 @@ using System.Configuration;
 
 namespace Server.View
 {
+    /*
+     * The 'View' of the Maze Game handles the connection and communication with clients
+     * attempting to play both single-player and multiplayer games.
+     */
     public class MazeConsoleView : IView
     {
         private int port;
@@ -25,11 +29,10 @@ namespace Server.View
             controller = control;
         }
 
-        public void sendInfo(string data, TcpClient user)
-        {
-            throw new NotImplementedException();
-        }
-
+        /*
+         * The start command begins the listening process in a new thread, this allows
+         * for the generation and reception of multiple clients simultaneously.
+         */
         public void start()
         {
             MazeClientHandler handler = new MazeClientHandler();
@@ -51,6 +54,7 @@ namespace Server.View
                         break;
                     }
                 }
+                listener.Stop();
                 Console.WriteLine("Server stopped");
             });
             task.Start();

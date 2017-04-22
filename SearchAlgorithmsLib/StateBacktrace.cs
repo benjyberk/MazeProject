@@ -8,7 +8,11 @@ namespace SearchAlgorithmsLib
 {
     public abstract class StateBacktrace<T> : IBacktracer<T>
     {
-        public Solution<T> backtrace(State<T> end)
+        /*
+         * The StateBacktracer is used as a shared abstract class to return
+         * a Solution from a given state
+         */
+        public Solution<T> Backtrace(State<T> end, int numberOfEvaluations)
         {
             List<State<T>> backlist = new List<State<T>>();
             State<T> next = end;
@@ -18,7 +22,8 @@ namespace SearchAlgorithmsLib
                 next = next.predecessor;
             }
             backlist.Reverse();
-            Solution<T> result = new Solution<T>(backlist);
+
+            Solution<T> result = new Solution<T>(backlist, numberOfEvaluations);
             return result;
         }
     }

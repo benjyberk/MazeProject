@@ -73,13 +73,11 @@ namespace SearchAlgorithmsLib
             while (openList.Count > 0)
             {
                 State<T> nextNode = RemoveTopNode();
-
                 // If we have reached the goal state, we generate the traceback and return it as a
                 // solution
                 if (nextNode.Equals(domain.getGoalState()))
                 {
-                    //Console.WriteLine("Reached BFS end at point " + nextNode.state.ToString());
-                    return backtrace(nextNode);
+                    return Backtrace(nextNode, numberOfEvaluations);
                 }
 
                 // getPossibleStates intializes our states, and assigns the predecessors as needed

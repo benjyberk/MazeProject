@@ -13,6 +13,11 @@ namespace Server
     {
         SearchableMaze GenerateMaze(string name, int rows, int cols);
         Solution<Position> SolveMaze(string mazeName, int solutionType);
-        string StartGame(string name, TcpClient user);
+        void StartGame(string name, int rows, int cols, TcpClient user);
+        void SetController(IController control);
+        List<string> GetActiveGames();
+        bool JoinMultiplayerGame(string name, TcpClient player);
+        bool MakeMove(TcpClient player, string move);
+        bool CancelGame(TcpClient player);
     }
 }

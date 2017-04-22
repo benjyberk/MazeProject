@@ -10,11 +10,16 @@ using System.Threading.Tasks;
 
 namespace Client
 {
+    /*
+     * The client basically consists of two running tasks, a messager and a listener.
+     * The messager constantly requests user input to send to the server; the listener
+     * creates the connection, listens for responses (and outputs them), and then
+     * keeps track of when the server closes the connection
+     */
     class Client
     {
         private int port;
         private IPEndPoint ip;
-        private TcpListener listener;
         private TcpClient client;
         private NetworkStream stream;
         private StreamReader reader;
@@ -31,22 +36,32 @@ namespace Client
 
         public void start()
         {
+            bool done = false;
             // We start the 'listening server' task
             Task listenTask = new Task(() => {
-                while (true)
+                while (!done)
                 {
                     client.Connect(ip);
-                    Console.WriteLine("New connection to server - listening");
+                    Console.WriteLine("New Connection to Server:");
                     stream = client.GetStream();
                     reader = new StreamReader(stream);
                     writer = new StreamWriter(stream);
                     string result = null;
                     do
                     {
-                        result = reader.ReadLine();
-                        if (result != null)
+                        try
                         {
-                            Console.WriteLine(result);
+                            result = reader.ReadLine();
+                            // When readline returns null, the server has closed the socket
+                            if (result != null)
+                            {
+                                Console.WriteLine(result);
+                            }
+                        }
+                        catch
+                        {
+                            done = true;
+                            break;
                         }
                     } while (result != null);
                     reader.Dispose();
@@ -55,15 +70,13 @@ namespace Client
                     client.Close();
 
                     client = new TcpClient();
-                    Console.WriteLine("Socket closed");
                 }
             });
+            // We start the messaging task
             Task messageTask = new Task(() => {
                     while (true)
                     {
-                        Console.Write("Please enter a command: ");
                         string command = Console.ReadLine();
-                        Console.WriteLine("You entered the command: {0}", command);
 
                         writer.WriteLine(command);
                         writer.Flush();

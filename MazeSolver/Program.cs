@@ -16,10 +16,13 @@ namespace MazeSolver
             ISearcher<Position> bfs = new BestFirstSearcher<Position>();
             ISearcher<Position> dfs = new DepthFirstSearcher<Position>();
             DFSMazeGenerator mazeMaker = new DFSMazeGenerator();
-            Maze m = mazeMaker.Generate(25, 25);
+            MazeWrap m = new MazeWrap();
+            Console.WriteLine("Start {0} - End {1}", m.InitialPos.ToString(), m.GoalPos.ToString());
+            Console.WriteLine("Rows {0} - Cols {1}", m.Rows, m.Cols);
             SearchableMaze maze = new SearchableMaze(m);
+            Maze k;
+           
             maze.print();
-
             if (bfs.search(maze) != null)
             {
                 Console.WriteLine("Number of BFS evaluations: {0}", bfs.getNumberOfEvaluations());

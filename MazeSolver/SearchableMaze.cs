@@ -13,10 +13,10 @@ namespace MazeSolver
      */
     public class SearchableMaze : ISearchable<Position>
     {
-        private Maze maze;
+        private MazeWrap maze;
 
         // The maze itself is given a parameter
-        public SearchableMaze(Maze maze)
+        public SearchableMaze(MazeWrap maze)
         {
             this.maze = maze;
         }

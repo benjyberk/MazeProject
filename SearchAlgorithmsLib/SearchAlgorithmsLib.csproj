@@ -48,7 +48,6 @@
     <Compile Include="StateBacktrace.cs" />
     <Compile Include="DepthFirstSearcher.cs" />
     <Compile Include="IBacktracer.cs" />
-    <Compile Include="IQueue.cs" />
     <Compile Include="ISearchable.cs" />
     <Compile Include="ISearcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

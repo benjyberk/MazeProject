@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace Server
 {
+    /*
+     * An 'Error' result returns its result value, and indicates the socket should
+     * be closed after it is received.
+     */
     public class Error
     {
         public string ErrorType;
@@ -19,6 +23,7 @@ namespace Server
         public static Result makeError(string errorMsg)
         {
             Error e = new Server.Error(errorMsg);
+            // The Error Message is converted to json form
             string message = JsonConvert.SerializeObject(e);
             return new View.Result(message, false);
         }

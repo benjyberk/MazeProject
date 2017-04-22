@@ -15,10 +15,16 @@ namespace SearchAlgorithmsLib
         {
             get;
         }
+
+        public int nodesEvaluated
+        {
+            get;
+        }
         
-        public Solution(List<State<T>> path)
+        public Solution(List<State<T>> path, int nodesEvaluated)
         {
             solutionPath = path;
+            this.nodesEvaluated = nodesEvaluated; 
         } 
     }
 }

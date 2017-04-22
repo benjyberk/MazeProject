@@ -32,15 +32,15 @@ namespace Server.Controller
                 int rows = 0, cols = 0;
                 try
                 {
+                    // We check to see the row and column are ints, as is required
                     rows = int.Parse(args[1]);
                     cols = int.Parse(args[2]);
 
                     maze = model.GenerateMaze(mazeName, rows, cols);
                     returnLine = maze.toJSON();
                 }
-                catch (Exception e)
+                catch
                 {
-                    Console.WriteLine(e.Message);
                     return Error.makeError("Invalid row/column parameters");
                 }
             }

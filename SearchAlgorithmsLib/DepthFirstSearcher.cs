@@ -45,8 +45,7 @@ namespace SearchAlgorithmsLib
                 // If we reach the goal, we return our path using the backtracer provided
                 if (node.Equals(domain.getGoalState()))
                 {
-                    //Console.WriteLine("Reached DFS end at point " + node.state.ToString());
-                    return backtrace(node);
+                    return Backtrace(node, numberOfEvaluations);
                 }
 
                 // If we haven't reached the goal, we add all possible successors to the stack

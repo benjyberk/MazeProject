@@ -10,6 +10,5 @@ namespace Server
     public interface IView
     {
         void start();
-        void sendInfo(string data, TcpClient user);
     }
 }

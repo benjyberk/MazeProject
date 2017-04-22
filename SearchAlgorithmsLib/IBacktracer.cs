@@ -8,6 +8,6 @@ namespace SearchAlgorithmsLib
 {
     public interface IBacktracer<T>
     {
-        Solution<T> backtrace(State<T> root);
+        Solution<T> Backtrace(State<T> root, int nodesEvaluated);
     }
 }

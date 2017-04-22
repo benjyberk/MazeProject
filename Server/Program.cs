@@ -9,6 +9,10 @@ namespace Server
 {
     class Program
     {
+        /*
+         * The MainLine creates the MVC [with a controller connected to a view and model]
+         * and begins the 'view'.
+         */
         static void Main(string[] args)
         {
             IModel model = new MazeGameModel();

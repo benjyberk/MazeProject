@@ -54,10 +54,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\CloseGameCommand.cs" />
     <Compile Include="Controller\GenerateMazeCommand.cs" />
     <Compile Include="Controller\ICommand.cs" />
+    <Compile Include="Controller\JoinGameCommand.cs" />
+    <Compile Include="Controller\ListGamesCommand.cs" />
+    <Compile Include="Controller\PlayCommand.cs" />
+    <Compile Include="Controller\SolveMazeCommand.cs" />
+    <Compile Include="Controller\StartGameCommand.cs" />
     <Compile Include="Error.cs" />
     <Compile Include="Model\IModel.cs" />
+    <Compile Include="Model\MultiplayerMazeGame.cs" />
     <Compile Include="View\IClientHandler.cs" />
     <Compile Include="View\IView.cs" />
     <Compile Include="Controller\MazeController.cs" />
