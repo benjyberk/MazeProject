@@ -57,6 +57,11 @@ namespace SearchAlgorithmsLib
             return nextNode;
         }
 
+        /// <summary>
+        /// The search command searches a searchable domain using the BFS algorithm
+        /// </summary>
+        /// <param name="domain">The search domain</param>
+        /// <returns>The solution to the problem</returns>
         public Solution<T> search(ISearchable<T> domain)
         {
             openList = new SimplePriorityQueue<State<T>>();

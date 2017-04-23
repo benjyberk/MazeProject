@@ -25,6 +25,12 @@ namespace Server.Controller
             this.model = model;
         }
 
+        /// <summary>
+        /// Executes the given command
+        /// </summary>
+        /// <param name="args">The arguments for the command</param>
+        /// <param name="client">The client sending the request</param>
+        /// <returns>The result of the command</returns>
         public Result Execute(string[] args, TcpClient client = null)
         {
             if (args.Count() != 2)

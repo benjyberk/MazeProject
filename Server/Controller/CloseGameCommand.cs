@@ -15,12 +15,21 @@ namespace Server.Controller
     class CloseGameCommand : ICommand
     {
         private IModel model;
-
+        /// <summary>
+        /// The constructor for the command
+        /// </summary>
+        /// <param name="model">The model - used to communicate commands</param>
         public CloseGameCommand(IModel model)
         {
             this.model = model;
         }
 
+        /// <summary>
+        /// Executes the Close Game command
+        /// </summary>
+        /// <param name="args">The arguments for the command (none in this case)</param>
+        /// <param name="client">The client sending the request</param>
+        /// <returns></returns>
         public Result Execute(string[] args, TcpClient client = null)
         {
             bool success = model.CancelGame(client);

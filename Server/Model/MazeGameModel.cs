@@ -26,6 +26,9 @@ namespace Server
         private DFSMazeGenerator mazeMaker;
         private IController controller;
 
+        /// <summary>
+        /// The constructor generates the required objects
+        /// </summary>
         public MazeGameModel()
         {
             mazeMaker = new DFSMazeGenerator();
@@ -106,6 +109,10 @@ namespace Server
             playerToGameMap.Add(user, oneGame);
         }
 
+        /// <summary>
+        /// Standard setter to assign the required controller
+        /// </summary>
+        /// <param name="control">The controller</param>
         public void SetController(IController control)
         {
             this.controller = control;

@@ -52,6 +52,11 @@ namespace SearchAlgorithmsLib
             return state.GetHashCode();
         }
 
+        /// <summary>
+        /// Implementations of IEquatable
+        /// </summary>
+        /// <param name="other">The comparing state</param>
+        /// <returns>Whether the state is equal to another</returns>
         public bool Equals(State<T> other)
         {
             return state.Equals(other.state);

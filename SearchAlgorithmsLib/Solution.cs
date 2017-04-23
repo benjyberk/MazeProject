@@ -11,6 +11,7 @@ namespace SearchAlgorithmsLib
      */
     public class Solution<T>
     {
+
         public List<State<T>> solutionPath
         {
             get;
@@ -21,6 +22,11 @@ namespace SearchAlgorithmsLib
             get;
         }
         
+        /// <summary>
+        /// The constructor; seeing as the class is a container, no processing is performed
+        /// </summary>
+        /// <param name="path">The path</param>
+        /// <param name="nodesEvaluated">Number of nodes evaluated</param>
         public Solution(List<State<T>> path, int nodesEvaluated)
         {
             solutionPath = path;

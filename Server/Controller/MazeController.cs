@@ -21,6 +21,11 @@ namespace Server
         private IModel model;
         private IView view;
 
+        /// <summary>
+        /// The constructor requires the model to be provided, and adds all possible commands
+        /// to the dictionary of commands
+        /// </summary>
+        /// <param name="model">The model used for communication</param>
         public MazeController(IModel model)
         {
             // All needed commands are added on construction.
@@ -34,6 +39,12 @@ namespace Server
             commands.Add("close", new CloseGameCommand(model));
         }
 
+        /// <summary>
+        /// Executes a given command by associating it with one of the contained ICommands
+        /// </summary>
+        /// <param name="command">The command to execute</param>
+        /// <param name="client">The client provided</param>
+        /// <returns>The result of the command</returns>
         public Result ExecuteCommand(string command, TcpClient client)
         {
             // The command is broken down into 'command' and 'arguments'

@@ -17,6 +17,10 @@ namespace SearchAlgorithmsLib
         Stack<State<T>> openList;
         HashSet<State<T>> closedList;
 
+        /// <summary>
+        /// Returns the number of evaluations that occured during the search
+        /// </summary>
+        /// <returns>The number of evaluations</returns>
         public int getNumberOfEvaluations()
         {
             return numberOfEvaluations;

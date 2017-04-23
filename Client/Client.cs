@@ -25,7 +25,9 @@ namespace Client
         private StreamReader reader;
         private StreamWriter writer;
 
-
+        /// <summary>
+        /// The constructor reads from app.config the required settings
+        /// </summary>
         public Client()
         {
             IPAddress tempIP = IPAddress.Parse(ConfigurationManager.AppSettings["ip"]);
@@ -34,6 +36,9 @@ namespace Client
             client = new TcpClient();
         }
 
+        /// <summary>
+        /// The start command begins the two tasks that make up the client
+        /// </summary>
         public void start()
         {
             bool done = false;
