@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{D6D01D0C-1D4B-4BF5-BC17-EA97B6DC40BC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeGameDesktop", "MazeGameDesktop\MazeGameDesktop.csproj", "{2AC1730F-BEE8-4FEC-9789-4F62913CBF46}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D6D01D0C-1D4B-4BF5-BC17-EA97B6DC40BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6D01D0C-1D4B-4BF5-BC17-EA97B6DC40BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6D01D0C-1D4B-4BF5-BC17-EA97B6DC40BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AC1730F-BEE8-4FEC-9789-4F62913CBF46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AC1730F-BEE8-4FEC-9789-4F62913CBF46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AC1730F-BEE8-4FEC-9789-4F62913CBF46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AC1730F-BEE8-4FEC-9789-4F62913CBF46}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

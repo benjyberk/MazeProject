@@ -1,0 +1,43 @@
+﻿<Window x:Class="MazeGameDesktop.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MazeGameDesktop"
+        mc:Ignorable="d"
+        Title="Settings Window" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Content="Enter Default Values for New Maze Games" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontWeight="Bold" Margin="10"/>
+        <Label Grid.Row="1" Content="IP Address"></Label>
+        <Label Grid.Row="2" Content="Port"></Label>
+        <Label Grid.Row="3" Content="Row Number"></Label>
+        <Label Grid.Row="4" Content="Column Number"></Label>
+        <Label Grid.Row="5" Content="Search Algorithm"/>
+
+        <TextBox Grid.Column="1" Grid.Row="1" Margin="5" Text="{Binding IP}" VerticalContentAlignment="Center"/>
+        <TextBox Grid.Column="1" Grid.Row="2" Margin="5" Text="{Binding Port}" VerticalContentAlignment="Center"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Margin="5" Text="{Binding DefaultRows}" VerticalContentAlignment="Center"/>
+        <TextBox Grid.Column="1" Grid.Row="4" Margin="5" Text="{Binding DefaultColumns}" VerticalContentAlignment="Center"/>
+        <ComboBox Name="AlgorithmBox" Grid.Column="1" Grid.Row="5" Margin="5" SelectedIndex="{Binding Algorithm}">
+            <ComboBoxItem Content="BFS"/>
+            <ComboBoxItem Content="DFS"/>
+        </ComboBox>
+        <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Name="Save" Content="Save" Margin="10" Padding="7,3,7,3" Click="SaveClicked"></Button>
+            <Button Name="Cancel" Content="Cancel" Margin="10" Padding="7,3,7,3" Click="CancelClicked"></Button>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,23 @@
+﻿<Window x:Class="MazeGameDesktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MazeGameDesktop"
+        mc:Ignorable="d"
+        Title="Maze Game" Height="350" Width="525">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="mazeBg.png" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel.Background>
+                <SolidColorBrush Color="Black"></SolidColorBrush>
+            </StackPanel.Background>
+            <Label Content="Benjy's Wonderful Maze Game" Foreground="White" HorizontalAlignment="Center" FontFamily="Arial"/>
+            <Button Content="Single Player Game" Margin="5" Padding="3" Click="SinglePlayerClick"/>
+            <Button Content="Multiplayer Game" Margin="5" Padding="3"/>
+            <Button x:Name="SettingsButton" Content="Settings" Margin="5" Padding="3" Click="SettingsButtonClick"/>
+        </StackPanel>
+    </Grid>
+</Window>
