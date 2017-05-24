@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MazeLib">
+      <HintPath>..\..\..\..\university\advanced programming 2\ex1\MazeLib.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -42,6 +45,8 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -66,6 +71,16 @@
     </Compile>
     <Compile Include="MainScreen\ViewModel\IMainViewModel.cs" />
     <Compile Include="MainScreen\ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="MazeDisplay.xaml.cs">
+      <DependentUpon>MazeDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NewMultiplayer\Model\INewMultiModel.cs" />
+    <Compile Include="NewMultiplayer\Model\NewMultiMazeModel.cs" />
+    <Compile Include="NewMultiplayer\ViewModel\INewMultiViewModel.cs" />
+    <Compile Include="NewMultiplayer\ViewModel\NewMultiViewModel.cs" />
+    <Compile Include="NewMultiplayer\View\NewMultiplayerWindow.xaml.cs">
+      <DependentUpon>NewMultiplayerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NewSingleplayer\Model\INewSingleModel.cs" />
     <Compile Include="NewSingleplayer\Model\NewSingleModel.cs" />
     <Compile Include="NewSingleplayer\ViewModel\INewSingleViewModel.cs" />
@@ -79,6 +94,13 @@
     <Compile Include="Settings\SettingsViewModel\SettingsViewModel.cs" />
     <Compile Include="Settings\SettingsView\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SingleMazeWindow\Model\ISinglePlayerModel.cs" />
+    <Compile Include="SingleMazeWindow\Model\SinglePlayerModel.cs" />
+    <Compile Include="SingleMazeWindow\ViewModel\ISinglePlayerViewModel.cs" />
+    <Compile Include="SingleMazeWindow\ViewModel\SinglePlayerViewModel.cs" />
+    <Compile Include="SingleMazeWindow\View\SingleMazeView.xaml.cs">
+      <DependentUpon>SingleMazeView.xaml</DependentUpon>
     </Compile>
     <Page Include="GameSettings.xaml">
       <SubType>Designer</SubType>
@@ -97,11 +119,23 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MazeDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NewMultiplayer\View\NewMultiplayerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="NewSingleplayer\View\NewSingleplayerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Settings\SettingsView\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SingleMazeWindow\View\SingleMazeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -123,6 +157,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -135,9 +170,21 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="MainScreen\View\mazelogo2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="endpoint.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="MainScreen\View\mazeBg.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="startpoint.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="playerimage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

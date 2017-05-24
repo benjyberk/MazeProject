@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MazeGameDesktop.NewSingleplayer"
         xmlns:shared="clr-namespace:MazeGameDesktop"
-        DialogResult="{Binding Close}"
         mc:Ignorable="d"
         Title="NewSingleplayerWindow" Height="200" Width="300">
     <Grid>

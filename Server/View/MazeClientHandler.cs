@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
@@ -34,6 +35,11 @@ namespace Server.View
                         // command, then send it.
                         if (result.resultString != null)
                         {
+                            if (!result.keepOpen)
+                            {
+                                result.resultString += "XXX";
+                            }
+                            Debug.WriteLine(result.resultString);
                             writer.Write(result.resultString);
                             writer.Flush();
                         }

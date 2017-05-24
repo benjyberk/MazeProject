@@ -1,0 +1,29 @@
+﻿<Window x:Class="MazeGameDesktop.SingleMazeWindow.View.SingleMazeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MazeGameDesktop.SingleMazeWindow.View"
+        xmlns:control="clr-namespace:MazeGameDesktop"
+        mc:Ignorable="d"
+        Title="{Binding Maze.Name}" Height="600" Width="600">
+    <Grid HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        
+        <Button x:Name="Restart" Grid.Column="0" Content="Restart Game" Margin="8,10,8,5" Padding="4" Click="Restart_Click"/>
+        <Button x:Name="Solve" Grid.Column="1" Content="Auto-Solve" Margin="8,10,8,5" Padding="4" Click="Solve_Click"/>
+        <Button x:Name="Back" Grid.Column="2" Content="Return to Menu" Margin="8,10,8,5" Padding="4" Click="Back_Click"/>
+
+        <control:MazeDisplay x:Name="MazeBoard" Margin="20" Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="1"
+                             Rows="{Binding Maze.Rows}" Columns="{Binding Maze.Cols}" PlayerPosition="{Binding PlayerPosition}"
+                             StartPos="{Binding StartPos}" EndPos="{Binding EndPos}" MazeString="{Binding MazeString}" />
+    </Grid>
+</Window>

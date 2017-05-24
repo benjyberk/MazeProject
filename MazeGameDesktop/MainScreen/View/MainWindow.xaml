@@ -5,19 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MazeGameDesktop"
         mc:Ignorable="d"
-        Title="Maze Game" Height="350" Width="525">
+        Title="Maze Game" Height="420" Width="525">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="mazeBg.png" Stretch="UniformToFill"/>
         </Grid.Background>
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <StackPanel.Background>
+        <Image Source="mazelogo2.png" />
+        <Border Padding="11" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Center">
+            <Border.Background>
                 <SolidColorBrush Color="Black"></SolidColorBrush>
-            </StackPanel.Background>
-            <Label Content="Benjy's Wonderful Maze Game" Foreground="White" HorizontalAlignment="Center" FontFamily="Arial"/>
-            <Button Content="Single Player Game" Margin="5" Padding="3" Click="SinglePlayerClick"/>
-            <Button Content="Multiplayer Game" Margin="5" Padding="3"/>
-            <Button x:Name="SettingsButton" Content="Settings" Margin="5" Padding="3" Click="SettingsButtonClick"/>
-        </StackPanel>
+            </Border.Background>
+            <StackPanel>
+                <Label Content="Benjy's aMazing Game" Foreground="White" HorizontalAlignment="Center" FontFamily="Arial"/>
+                <Button Content="Single Player Game" Margin="5" Padding="3" Click="SinglePlayerClick"/>
+                <Button Content="Multiplayer Game" Margin="5" Padding="3"/>
+                <Button x:Name="SettingsButton" Content="Settings" Margin="5" Padding="3" Click="SettingsButtonClick"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

@@ -15,6 +15,7 @@ namespace Server.View
         public string resultString
         {
             get;
+            set;
         }
         public bool keepOpen
         {

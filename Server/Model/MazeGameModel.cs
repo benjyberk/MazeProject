@@ -48,8 +48,18 @@ namespace Server
             Maze m = mazeMaker.Generate(rows, cols);
             SearchableMaze maze = new SearchableMaze(m, name);
             // The maze is saved in the database
-            singlePlayerMazes.Add(name, maze);
-
+            if (!singlePlayerMazes.ContainsKey(name))
+            {
+                singlePlayerMazes.Add(name, maze);
+            }
+            else
+            {
+                singlePlayerMazes[name] = maze;
+                if (singlePlayerSolutions.ContainsKey(name))
+                {
+                    singlePlayerSolutions.Remove(name);
+                }
+            }
             return maze;
         }
 
@@ -105,8 +115,23 @@ namespace Server
             // We add the player to the game we just created
             oneGame.AddPlayer(user);
             // We place the maze into our database
-            multiplayerMazes.Add(name, oneGame);
-            playerToGameMap.Add(user, oneGame);
+            if (!multiplayerMazes.ContainsKey(name))
+            {
+                multiplayerMazes.Add(name, oneGame);
+            }
+            else
+            {
+                multiplayerMazes[name] = oneGame;
+            }
+
+            if (!playerToGameMap.ContainsKey(user))
+            {
+                playerToGameMap.Add(user, oneGame);
+            }
+            else
+            {
+                playerToGameMap[user] = oneGame;
+            }
         }
 
         /// <summary>

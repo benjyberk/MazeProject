@@ -42,12 +42,12 @@ namespace Server.Controller
                     cols = int.Parse(args[2]);
 
                     maze = model.GenerateMaze(mazeName, rows, cols);
-                    returnLine = maze.toJSON();
                 }
-                catch
+                catch (Exception e)
                 {
                     return Error.makeError("Invalid row/column parameters");
                 }
+                returnLine = maze.toJSON();
             }
             else
             {

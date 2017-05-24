@@ -1,5 +1,4 @@
-﻿using MazeGameDesktop.MainScreen;
-using MazeGameDesktop.NewSingleplayer.ViewModel;
+﻿using MazeGameDesktop.NewMultiplayer.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,18 +13,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace MazeGameDesktop.NewSingleplayer
+namespace MazeGameDesktop.NewMultiplayer.View
 {
     /// <summary>
-    /// Interaction logic for NewSingleplayerWindow.xaml
+    /// Interaction logic for NewMultiplayerWindow.xaml
     /// </summary>
-    public partial class NewSingleplayerWindow : Window
+    public partial class NewMultiplayerWindow : Window
     {
         private bool open;
-        public NewSingleplayerWindow(INewSingleViewModel vm)
+
+        public NewMultiplayerWindow(INewMultiViewModel vm)
         {
             this.DataContext = vm;
-            open = true; 
+            open = true;
             vm.CloseEvent += CloseFunc;
             InitializeComponent();
             Form.DataContext = vm;
@@ -50,4 +50,6 @@ namespace MazeGameDesktop.NewSingleplayer
             }
         }
     }
+
+}
 }

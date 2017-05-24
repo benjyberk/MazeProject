@@ -1,35 +1,37 @@
-﻿using MazeGameDesktop.NewSingleplayer.Model;
+﻿using MazeGameDesktop.NewMultiplayer.Model;
+using MazeLib;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.ComponentModel;
-using System.Diagnostics;
-using Newtonsoft.Json.Linq;
-using System.Windows.Threading;
-using MazeGameDesktop.SingleMazeWindow.View;
-using MazeLib;
-using MazeGameDesktop.SingleMazeWindow.ViewModel;
-using MazeGameDesktop.SingleMazeWindow.Model;
 
-namespace MazeGameDesktop.NewSingleplayer.ViewModel
+namespace MazeGameDesktop.NewMultiplayer.ViewModel
 {
-    class NewSingleViewModel : INewSingleViewModel
+    class NewMultiViewModel : INewMultiViewModel
     {
-        private INewSingleModel model;
+        public int Rows { get; set; }
+        public int Columns { get; set; }
+        public string Name { get; set; }
+        public bool Close { set; get; }
+        public ObservableCollection<string> GameList { get; set; }
 
-        bool Open;
-
-        public event PropertyChangedEventHandler PropertyChanged;
         public event CloseFunc CloseEvent;
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public NewSingleViewModel(INewSingleModel model)
+        private bool Open;
+        private INewMultiModel model;
+
+        public NewMultiViewModel(INewMultiModel model)
         {
             Name = "Default Name";
             Open = true;
-            Close = false;
+            GameList = new ObservableCollection<string>();
             this.model = model;
             model.PropertyChanged += ModelUpdated;
             model.UpdateDefaultValues();
@@ -70,9 +72,9 @@ namespace MazeGameDesktop.NewSingleplayer.ViewModel
                             {
                                 CloseEvent(true, parse["ErrorType"].ToString());
                             });
-                            model.Stop();
                         }
-                    } else if (parse["Maze"] != null)
+                    }
+                    else if (parse["Maze"] != null)
                     {
                         if (Open)
                         {
@@ -83,56 +85,19 @@ namespace MazeGameDesktop.NewSingleplayer.ViewModel
                                 CloseEvent(false, "Got Maze");
 
                                 Maze m = Maze.FromJSON(e.PropertyName);
-                                SingleMazeView OpenMaze = new SingleMazeView(new SinglePlayerViewModel(new SinglePlayerModel(m)));
-                                OpenMaze.Show();
+                                // Open the MultiMaze
                             });
-                            model.Stop();
+
+
                         }
                     }
                 }
             }
         }
 
-        private int _Columns;
-        public int Columns
-        {
-            get
-            {
-                return _Columns;
-            }
-            set
-            {
-                _Columns = value;
-            }
-        }
-
-        private int _Rows;
-        public int Rows
-        {
-            get
-            {
-                return _Rows;
-            }
-            set
-            {
-                _Rows = value;
-            }
-        }
-
-        public bool Close
-        {
-            get; set;
-        }
-
-        public string Name
-        {
-            get; set;
-        }
-
         public void StartGameClicked(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine("Start game clicked!");
-            model.GenerateMaze(Name.Replace(' ', '_'), Rows, Columns);
+            throw new NotImplementedException();
         }
     }
 }

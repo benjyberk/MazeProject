@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -33,6 +34,7 @@ namespace MazeGameDesktop
         /// </summary>
         public Client()
         {
+            running = false;
             SetPortAndIP();
         }
 
@@ -77,32 +79,54 @@ namespace MazeGameDesktop
             }
         }
 
+        public bool IsRunning()
+        {
+            return running;
+        }
+
         /// <summary>
         /// The start command begins the two tasks that make up the client
         /// </summary>
         public void start()
         {
             SetPortAndIP();
-            running = true;
             // We start the 'listening server' task and start it
             // It stops when the server closes the connection
             Task listenTask = new Task(() =>
             {
-                client = new TcpClient();
-                client.Connect(ip);
+                try
+                {
+                    client = new TcpClient();
+                    client.Connect(ip);
+                }
+                catch
+                {
+                    Debug.WriteLine("Error at socket connect");
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(Error.makeError("Socket Error - Closed")));
+                    return;
+                }
+                running = true;
                 stream = client.GetStream();
                 reader = new StreamReader(stream);
                 writer = new StreamWriter(stream);
+
                 string result = null;
+                string finalResult = null;
+
                 do
                 {
                     try
                     {
-                        result = reader.ReadLine();
+                        result = reader.ReadToEnd();
                         // When readline returns null, the server has closed the socket
                         if (result != null)
                         {
-                            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(result));
+                            if (result.EndsWith("XXX"))
+                            {
+                                finalResult = result.TrimEnd('X');
+                                running = false;
+                            }
+                            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(finalResult));
                         }
                     }
                     catch
