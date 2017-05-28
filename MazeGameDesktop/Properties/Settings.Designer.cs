@@ -49,7 +49,7 @@ namespace MazeGameDesktop.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        [global::System.Configuration.DefaultSettingValueAttribute("25")]
         public int DefaultRows {
             get {
                 return ((int)(this["DefaultRows"]));
@@ -61,7 +61,7 @@ namespace MazeGameDesktop.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        [global::System.Configuration.DefaultSettingValueAttribute("25")]
         public int DefaultCols {
             get {
                 return ((int)(this["DefaultCols"]));

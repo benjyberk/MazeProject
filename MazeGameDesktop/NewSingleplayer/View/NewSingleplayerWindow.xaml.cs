@@ -21,17 +21,24 @@ namespace MazeGameDesktop.NewSingleplayer
     /// </summary>
     public partial class NewSingleplayerWindow : Window
     {
-        private bool open;
+        /// <summary>
+        /// The constructor sets the vm and attaches required events
+        /// </summary>
+        /// <param name="vm"></param>
         public NewSingleplayerWindow(INewSingleViewModel vm)
         {
             this.DataContext = vm;
-            open = true; 
             vm.CloseEvent += CloseFunc;
             InitializeComponent();
             Form.DataContext = vm;
             Form.Start.Click += vm.StartGameClicked;
         }
 
+        /// <summary>
+        /// A function that gets attatched to events to close the view
+        /// </summary>
+        /// <param name="error">True or false if there was an error</param>
+        /// <param name="reason">The reason for closure</param>
         public void CloseFunc(bool error, string reason)
         {
             if (error)

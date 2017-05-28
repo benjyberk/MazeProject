@@ -13,6 +13,10 @@ using System.Windows;
 
 namespace MazeGameDesktop.MultiplayerMazeWindow.ViewModel
 {
+    /// <summary>
+    /// The VM for the multiplayer window keeps track of the game process and
+    /// forwards/translates messages from the View to the Model and back
+    /// </summary>
     class MultiplayerViewModel : IMultiplayerViewModel
     {
         public string EndPos
@@ -63,13 +67,19 @@ namespace MazeGameDesktop.MultiplayerMazeWindow.ViewModel
             }
         }
 
+        // When a server error occurs, the VM updates the view
         public event NoParams ServerError;
         public event PropertyChangedEventHandler PropertyChanged;
         public event MazeEnd EndEvent;
+        // When the maze is successfully loaded, the game is 'activated'
         public event NoParams MazeLoaded;
 
         private IMultiplayerWindowModel Model;
 
+        /// <summary>
+        /// The constructor registers the VM to the model
+        /// </summary>
+        /// <param name="model"></param>
         public MultiplayerViewModel(IMultiplayerWindowModel model)
         {
             this.Model = model;
@@ -77,7 +87,11 @@ namespace MazeGameDesktop.MultiplayerMazeWindow.ViewModel
             Model.ServerUpdateEvent += HandleServerMessage;
         }
 
-
+        /// <summary>
+        /// The messages from the server are parsed into their types
+        /// and then DeSerialized from their json forms
+        /// </summary>
+        /// <param name="update"></param>
         private void HandleServerMessage(string update)
         {
             if (update.Contains("ErrorType"))
@@ -88,20 +102,25 @@ namespace MazeGameDesktop.MultiplayerMazeWindow.ViewModel
                     ServerError?.Invoke();
                 });
             }
+            // Updating the maze in the model automatically updates the VM and the View
             else if (update.Contains("Maze"))
             {
                 Maze m = Maze.FromJSON(update);
                 Model.Maze = m;
             }
-            else
+            // The only other message possible is a 'direction' message
+            else if (update.Contains("Direction"))
             {
-
                 JObject parse = JObject.Parse(update);
                 MoveEnemy(parse["Direction"].ToString());
-
             }
         }
 
+        /// <summary>
+        /// A helper function used to parse the enemy movement into the required
+        /// directional change
+        /// </summary>
+        /// <param name="direction"></param>
         private void MoveEnemy(string direction)
         {
             List<int> coords = Model.TryGetValues(EnemyPosition);
@@ -121,15 +140,22 @@ namespace MazeGameDesktop.MultiplayerMazeWindow.ViewModel
                 {
                     coords[0] = coords[0] + 1;
                 }
+                // When the direction is properly handled, the position is updated
                 Model.EnemyPosition = String.Format("{0}#{1}", coords[0], coords[1]);
                 UpdateProperty(this, new PropertyChangedEventArgs("EnemyPosition"));
             }
         }
 
+        /// <summary>
+        /// Used to handle model property updates
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateProperty(object sender, PropertyChangedEventArgs e)
         {
             PropertyChanged?.Invoke(this, e);
 
+            // If the user reaches the end, end the game
             if (e.PropertyName == "LocalPosition" && LocalPosition == EndPos)
             {
                 Model.ServerUpdateEvent -= HandleServerMessage;
@@ -139,6 +165,7 @@ namespace MazeGameDesktop.MultiplayerMazeWindow.ViewModel
                 });
                 Model.Close();
             } 
+            // If the enemy reaches the end, end the game
             else if (e.PropertyName == "EnemyPosition" && EnemyPosition == EndPos)
             {
                 Model.ServerUpdateEvent -= HandleServerMessage;
@@ -148,6 +175,7 @@ namespace MazeGameDesktop.MultiplayerMazeWindow.ViewModel
                 });
                 Model.Close();
             }
+            // If the maze is update; enable the user inputs
             else if (e.PropertyName == "Maze")
             {
                 Application.Current.Dispatcher.Invoke(() =>
@@ -157,17 +185,28 @@ namespace MazeGameDesktop.MultiplayerMazeWindow.ViewModel
             }
         }
 
+        /// <summary>
+        /// Close the model and deregister from updates
+        /// </summary>
         public void CloseOperation()
         {
             Model.ServerUpdateEvent -= HandleServerMessage;
             Model.Close();
         }
 
+        /// <summary>
+        /// Pass on function to the model
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void HandleKey(object sender, KeyEventArgs e)
         {
             if (Maze != null)
             {
-                Model.HandleKey(sender, e);
+                if (e.Key == Key.Left || e.Key == Key.Right || e.Key == Key.Up || e.Key == Key.Down)
+                {
+                    Model.HandleKey(sender, e);
+                }
             }
         }
     }

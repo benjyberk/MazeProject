@@ -145,6 +145,7 @@ namespace MazeGameDesktop
                             break;
                         }
                     } while (result != null && running);
+                    // We allow the option of automatically reconnecting
                 } while (ReopenFlag);
                 Debug.WriteLine("Client Closing");
                 running = false;

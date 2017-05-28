@@ -11,6 +11,10 @@ using Newtonsoft.Json.Linq;
 
 namespace MazeGameDesktop.SingleMazeWindow.Model
 {
+    /// <summary>
+    /// The Singleplayer Model handles passing on messages from
+    /// the client to the VM for display
+    /// </summary>
     class SinglePlayerModel : ISinglePlayerModel
     {
 
@@ -36,6 +40,11 @@ namespace MazeGameDesktop.SingleMazeWindow.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// The constructor initializes and connects to the client
+        /// as well as initializing properties
+        /// </summary>
+        /// <param name="m"></param>
         public SinglePlayerModel(Maze m)
         {
             Solution = null;
@@ -48,6 +57,10 @@ namespace MazeGameDesktop.SingleMazeWindow.Model
             SetMazeProperties();
         }
 
+        /// <summary>
+        /// A helper function that parses the provided maze to pass on to the
+        /// VM and eventually View
+        /// </summary>
         private void SetMazeProperties()
         {
             for (int i = 0; i < Maze.Rows; i++)
@@ -72,6 +85,11 @@ namespace MazeGameDesktop.SingleMazeWindow.Model
             UpdatePropInvoke("PlayerPosition");
         }
 
+        /// <summary>
+        /// Handles user input and parses it into practical movement updates
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void HandleKey(object sender, KeyEventArgs e)
         {
             List<int> coords = TryGetValues(PlayerPosition);
@@ -90,6 +108,7 @@ namespace MazeGameDesktop.SingleMazeWindow.Model
                 if (coords[0] >= 0 && coords[0] < Maze.Cols &&
                     coords[1] >= 0 && coords[1] < Maze.Rows)
                 {
+                    // If the move is valid, the player position is updated
                     if (Maze[coords[1], coords[0]] == CellType.Free)
                     {
                         PlayerPosition = String.Format("{0}#{1}", coords[0], coords[1]);
@@ -99,6 +118,12 @@ namespace MazeGameDesktop.SingleMazeWindow.Model
             }
         }
 
+        /// <summary>
+        /// A helper function used to translate strings of the form D#D into two coordinates
+        /// (returned in array of ints form)
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public List<int> TryGetValues(string input)
         {
             int x, y;
@@ -116,6 +141,9 @@ namespace MazeGameDesktop.SingleMazeWindow.Model
             }
         }
 
+        /// <summary>
+        /// Sends the solution request to the server
+        /// </summary>
         public void GetSolution()
         {
             if (Solution == null)
@@ -128,14 +156,21 @@ namespace MazeGameDesktop.SingleMazeWindow.Model
             }
         }
 
+        /// <summary>
+        /// Update the VM on server update
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ServerUpdate(object sender, PropertyChangedEventArgs e)
         {
+            // If the client has received a non-error, it must be the solution
             if (!e.PropertyName.Contains("ErrorType"))
             {
                 JObject parse = JObject.Parse(e.PropertyName);
                 Solution = parse["Solution"].ToString();
                 UpdatePropInvoke("Solution");
             }
+            // Otherwise, we indicate that a server error has occured
             else
             {
                 if (Solution == null)
@@ -147,11 +182,19 @@ namespace MazeGameDesktop.SingleMazeWindow.Model
             Debug.WriteLine(String.Format("Server Response: {0}", e.PropertyName));
         }
 
+        /// <summary>
+        /// A helper function to update property changes
+        /// </summary>
+        /// <param name="prop"></param>
         private void UpdatePropInvoke(string prop)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
+
+        /// <summary>
+        /// Closes the client
+        /// </summary>
         public void Close()
         {
             client?.stop();

@@ -120,11 +120,18 @@ namespace MazeGameDesktop
             me.MazeLoaded(me, new RoutedEventArgs());
         }
 
+        /// <summary>
+        /// When the maze is loaded (i.e. there is a maze string) we generate the maze
+        /// object using different coloured rectangles added to the canvas
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void MazeLoaded(object sender, RoutedEventArgs e)
         {
             if (MazeString != null)
             {
                 double ColorCount = 0;
+                // The width and height of each rectangle is proportionate
                 width = (MazeSpace.Width / Columns);
                 height = (MazeSpace.Height / Rows);
                 Debug.WriteLine("Started constructing maze");
@@ -136,7 +143,7 @@ namespace MazeGameDesktop
                         Rectangle rect = new Rectangle();
                         rect.Width = width;
                         rect.Height = height;
-
+                        // The block colour depends on its type
                         char block = MazeString[(i * Columns) + j];
                         if (block == '0')
                         {
@@ -144,25 +151,29 @@ namespace MazeGameDesktop
                         }
                         else
                         {
+                            // We generate a rainbow colour by translating a Hue/Saturation/Luminosity
+                            // value into RGB
                             SolidColorBrush brush = new SolidColorBrush(HSL2RGB(ColorCount, 0.5, 0.5));
                             rect.Fill = brush;
                             rect.Stroke = brush;
-                            rect.StrokeThickness = 1;
+                            rect.StrokeThickness = 20;
                             ColorCount += 0.005;
                             ColorCount = ColorCount % 1;
                         }
-
+                        // We add the rectangle to the canvas
                         MazeSpace.Children.Add(rect);
                         Canvas.SetTop(rect, i * height);
                         Canvas.SetLeft(rect, j * width);
                         Canvas.SetZIndex(rect, 1);
-                        int a = 5;
-                        //Window.GetWindow(this).KeyDown += MovePlayer;
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// The function draws the images used to represent the start and end of the maze
+        /// </summary>
+        /// <param name="propName"></param>
         private void DrawStartEnd(DependencyProperty propName)
         {
             List<int> coords;
@@ -195,7 +206,7 @@ namespace MazeGameDesktop
             height = (MazeSpace.Height / Rows);
 
             Rectangle position = new Rectangle();
-
+            // Once we know where to position the start and end, we draw them
             if (coords != null)
             {
                 position.Width = width;
@@ -208,6 +219,9 @@ namespace MazeGameDesktop
             }
         }
 
+        /// <summary>
+        /// Draws the player icon on the canvas
+        /// </summary>
         private void DrawPlayerIcon()
         {
             if (PlayerPosition != null)
@@ -243,6 +257,11 @@ namespace MazeGameDesktop
             }
         }
 
+        /// <summary>
+        /// Parses a D#D string into two integers, if possible.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         private static List<int> TryGetValues(string input)
         {
             int x, y;
@@ -262,15 +281,16 @@ namespace MazeGameDesktop
 
         // Given H,S,L in range of 0-1
         // Returns a Color (RGB struct) in range of 0-255
-        public static Color HSL2RGB(double h, double sl, double l)
+        // Adapted with permission from http://www.java2s.com/Code/CSharp/2D-Graphics/HSLtoRGBconversion.htm
+        public static Color HSL2RGB(double h, double sl, double luminosity)
         {
             double v;
-            double r, g, b;
+            double red, green, blue;
 
-            r = l;   // default to gray
-            g = l;
-            b = l;
-            v = (l <= 0.5) ? (l * (1.0 + sl)) : (l + sl - l * sl);
+            red = luminosity;   // default to gray
+            green = luminosity;
+            blue = luminosity;
+            v = (luminosity <= 0.5) ? (luminosity * (1.0 + sl)) : (luminosity + sl - luminosity * sl);
             if (v > 0)
             {
                 double m;
@@ -278,7 +298,7 @@ namespace MazeGameDesktop
                 int sextant;
                 double fract, vsf, mid1, mid2;
 
-                m = l + l - v;
+                m = luminosity + luminosity - v;
                 sv = (v - m) / v;
                 h *= 6.0;
                 sextant = (int)h;
@@ -289,40 +309,40 @@ namespace MazeGameDesktop
                 switch (sextant)
                 {
                     case 0:
-                        r = v;
-                        g = mid1;
-                        b = m;
+                        red = v;
+                        green = mid1;
+                        blue = m;
                         break;
                     case 1:
-                        r = mid2;
-                        g = v;
-                        b = m;
+                        red = mid2;
+                        green = v;
+                        blue = m;
                         break;
                     case 2:
-                        r = m;
-                        g = v;
-                        b = mid1;
+                        red = m;
+                        green = v;
+                        blue = mid1;
                         break;
                     case 3:
-                        r = m;
-                        g = mid2;
-                        b = v;
+                        red = m;
+                        green = mid2;
+                        blue = v;
                         break;
                     case 4:
-                        r = mid1;
-                        g = m;
-                        b = v;
+                        red = mid1;
+                        green = m;
+                        blue = v;
                         break;
                     case 5:
-                        r = v;
-                        g = m;
-                        b = mid2;
+                        red = v;
+                        green = m;
+                        blue = mid2;
                         break;
                 }
             }
-            byte R = Convert.ToByte(r * 255.0f);
-            byte G = Convert.ToByte(g * 255.0f);
-            byte B = Convert.ToByte(b * 255.0f);
+            byte R = Convert.ToByte(red * 255.0f);
+            byte G = Convert.ToByte(green * 255.0f);
+            byte B = Convert.ToByte(blue * 255.0f);
 
             return Color.FromRgb(R,G,B);
         }

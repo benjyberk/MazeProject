@@ -20,20 +20,28 @@ namespace MazeGameDesktop.NewMultiplayer.View
     /// </summary>
     public partial class NewMultiplayerWindow : Window
     {
-        private bool open;
         private INewMultiViewModel vm;
 
+        /// <summary>
+        /// The constructor sets the VM context
+        /// </summary>
+        /// <param name="vm"></param>
         public NewMultiplayerWindow(INewMultiViewModel vm)
         {
             this.DataContext = vm;
             this.vm = vm;
-            open = true;
             vm.CloseEvent += CloseFunc;
             InitializeComponent();
             Form.DataContext = vm;
             Form.Start.Click += vm.StartGameClicked;
         }
 
+        /// <summary>
+        /// Closes the window with the appropriate error message
+        /// in the event of server closure or successful maze end
+        /// </summary>
+        /// <param name="error"></param>
+        /// <param name="reason"></param>
         public void CloseFunc(bool error, string reason)
         {
             if (error)
@@ -52,6 +60,11 @@ namespace MazeGameDesktop.NewMultiplayer.View
             }
         }
 
+        /// <summary>
+        /// Joins the selected game using the VM
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void JoinGame(object sender, RoutedEventArgs e)
         {
             if (GameBox.SelectedItem != null)

@@ -49,6 +49,9 @@ namespace MazeGameDesktop.NewSingleplayer.Model
             }
         }
 
+        /// <summary>
+        /// The constructor listens to updates from the client
+        /// </summary>
         public NewSingleModel()
         {
             client = new MazeGameDesktop.Client();
@@ -56,6 +59,9 @@ namespace MazeGameDesktop.NewSingleplayer.Model
             client.start();
         }
 
+        /// <summary>
+        /// The default values are grabbed from the appsettings
+        /// </summary>
         public void UpdateDefaultValues()
         {
             Rows = Properties.Settings.Default.DefaultRows;
@@ -71,16 +77,32 @@ namespace MazeGameDesktop.NewSingleplayer.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
         
+        /// <summary>
+        /// A sortcut method for updating when the client receives a message
+        /// from the server
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ClientUpdated(object sender, PropertyChangedEventArgs e)
         {
             PropertyChanged?.Invoke(this, e);
         }
 
+        /// <summary>
+        /// Stops the running on the client
+        /// </summary>
         public void Stop()
         {
             client?.stop();
         }
 
+        /// <summary>
+        /// Generates the maze, which is then fed into the VM to open a singleplayer
+        /// maze window
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="rows"></param>
+        /// <param name="cols"></param>
         public void GenerateMaze(string name, int rows, int cols)
         {
             if (client.IsRunning())

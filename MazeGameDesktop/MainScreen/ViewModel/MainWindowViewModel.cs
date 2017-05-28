@@ -12,8 +12,14 @@ using System.Threading.Tasks;
 
 namespace MazeGameDesktop.MainScreen
 {
+    /// <summary>
+    /// The ViewModel for the main window handles initialization of the screens
+    /// </summary>
     class MainWindowViewModel : IMainViewModel
     {
+        /// <summary>
+        /// The Multiplayer MVVM architecture is intialized and run
+        /// </summary>
         public void OpenMultiPlayer()
         {
             INewMultiModel multiMod = new NewMultiMazeModel();
@@ -22,12 +28,19 @@ namespace MazeGameDesktop.MainScreen
             multi.Show();
         }
 
+        /// <summary>
+        /// The Settings window is initialized and run (still in MVVM form,
+        /// it simply generates its MVVM internally)
+        /// </summary>
         public void OpenSettings()
         {
             SettingsWindow settings = new SettingsWindow();
             settings.Show();
         }
 
+        /// <summary>
+        /// The SinglePlayer selection window is initialized and run
+        /// </summary>
         public void OpenSinglePlayer()
         {
             INewSingleModel newMod = new NewSingleModel();
