@@ -19,5 +19,7 @@ namespace MazeGameDesktop.NewMultiplayer.ViewModel
         bool Close { set; get; }
         ObservableCollection<string> GameList { get; set; }
         void StartGameClicked(object sender, RoutedEventArgs e);
+        void JoinGameClicked(string name);
+
     }
 }

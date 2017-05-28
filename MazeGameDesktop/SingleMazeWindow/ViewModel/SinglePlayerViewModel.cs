@@ -21,51 +21,51 @@ namespace MazeGameDesktop.SingleMazeWindow.ViewModel
         {
             get
             {
-                return model.Maze;
+                return Model.Maze;
             }
         }
         public string MazeString {
             get
             {
-                return model.MazeString;
+                return Model.MazeString;
             }
         }
         public string StartPos {
             get
             {
-                return model.StartPos;
+                return Model.StartPos;
             }
         }
 
         public string EndPos {
             get
             {
-                return model.EndPos;
+                return Model.EndPos;
             }
         }
 
         public string PlayerPosition {
             get
             {
-                return model.PlayerPosition;
+                return Model.PlayerPosition;
             }
         }
-        private ISinglePlayerModel model;
+        private ISinglePlayerModel Model;
 
         public SinglePlayerViewModel(ISinglePlayerModel model)
         {
             ended = false;
-            this.model = model;
+            this.Model = model;
             model.PropertyChanged += ModelUpdate;
         }
 
         private void SolutionUpdate()
         {
-            List<int> coords = model.TryGetValues(StartPos);
-            if (model.Solution != "-1")
+            List<int> coords = Model.TryGetValues(StartPos);
+            if (Model.Solution != "-1")
             {
-                model.PlayerPosition = StartPos;
-                foreach (char instruction in model.Solution)
+                Model.PlayerPosition = StartPos;
+                foreach (char instruction in Model.Solution)
                 {
                     System.Threading.Thread.Sleep(250);
                     if (instruction == '0')
@@ -76,7 +76,7 @@ namespace MazeGameDesktop.SingleMazeWindow.ViewModel
                         coords[1] = coords[1] - 1;
                     else if (instruction == '3')
                         coords[1] = coords[1] + 1;
-                    model.PlayerPosition = String.Format("{0}#{1}", coords[0], coords[1]);
+                    Model.PlayerPosition = String.Format("{0}#{1}", coords[0], coords[1]);
                 }
             } else
             {
@@ -96,7 +96,7 @@ namespace MazeGameDesktop.SingleMazeWindow.ViewModel
                     {
                         EndEvent?.Invoke();
                     });
-
+                    Model.PropertyChanged -= ModelUpdate;
                     ended = true;
                 }
             }
@@ -112,22 +112,23 @@ namespace MazeGameDesktop.SingleMazeWindow.ViewModel
 
         public void HandleKey(object sender, KeyEventArgs e)
         {
-            model.HandleKey(sender, e);
+            Model.HandleKey(sender, e);
         }
 
         public void SolveClicked()
         {
-            model.GetSolution();
+            Model.GetSolution();
         }
 
         public void CloseOperation()
         {
-            model.Close();
+            Model.PropertyChanged -= ModelUpdate;
+            Model.Close();
         }
 
         public void ResetOperation()
         {
-            model.PlayerPosition = StartPos;
+            Model.PlayerPosition = StartPos;
         }
     }
 }

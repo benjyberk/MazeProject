@@ -13,8 +13,9 @@
     </UserControl.Resources>
     <Grid>
         <Viewbox>
-            <Border BorderBrush="Black" BorderThickness="2">
-                <Canvas x:Name="MazeSpace" Height="300" Width="300" Loaded="MazeLoaded"/>
+            <Border BorderBrush="WhiteSmoke" BorderThickness="2">
+                <Canvas x:Name="MazeSpace" Height="300" Width="300" Loaded="MazeLoaded"
+                        Background="Black"/>
             </Border>
         </Viewbox>
     </Grid>

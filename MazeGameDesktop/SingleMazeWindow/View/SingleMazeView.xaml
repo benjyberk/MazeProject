@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:MazeGameDesktop.SingleMazeWindow.View"
         xmlns:control="clr-namespace:MazeGameDesktop"
         mc:Ignorable="d"
-        Title="{Binding Maze.Name}" Height="600" Width="600">
-    <Grid HorizontalAlignment="Center">
+        Title="{Binding Maze.Name}" Height="600" Width="600" Background="Black">
+    <Grid HorizontalAlignment="Center" Background="Black">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>

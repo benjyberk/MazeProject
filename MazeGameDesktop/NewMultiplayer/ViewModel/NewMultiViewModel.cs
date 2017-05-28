@@ -1,5 +1,6 @@
 ﻿using MazeGameDesktop.NewMultiplayer.Model;
 using MazeLib;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,51 @@ namespace MazeGameDesktop.NewMultiplayer.ViewModel
             GameList = new ObservableCollection<string>();
             this.model = model;
             model.PropertyChanged += ModelUpdated;
+            model.ServerMessageEvent += ServerEventHandle;
             model.UpdateDefaultValues();
+            System.Threading.Thread.Sleep(250);
+            model.GetList();
+        }
+
+        private void ServerEventHandle(string update)
+        {
+            update = update.Trim('\n');
+            JObject parse = null;
+            JArray array = null;
+
+            if (update.StartsWith("["))
+            {
+                array = JArray.Parse(update);
+            }
+            else
+            {
+                parse = JObject.Parse(update);
+            }
+
+            if (parse != null && parse["ErrorType"] != null)
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    CloseEvent(true, parse["ErrorType"].ToString());
+                });
+                model.Stop();
+            }
+            else if (array != null)
+            {
+                List<string> ParseList = null;
+
+                ParseList = JsonConvert.DeserializeObject<List<string>>(update);
+
+                foreach (string unit in ParseList)
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        GameList.Add(unit);
+                    });
+                }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("GameList"));
+                model.ServerMessageEvent -= ServerEventHandle;
+            }
         }
 
         private void UpdateListeners(PropertyChangedEventArgs e)
@@ -58,46 +103,26 @@ namespace MazeGameDesktop.NewMultiplayer.ViewModel
                     Columns = model.Columns;
                     UpdateListeners(e);
                 }
-                else
-                {
-                    model.PropertyChanged -= ModelUpdated;
-                    JObject parse = JObject.Parse(e.PropertyName);
-                    if (parse["ErrorType"] != null)
-                    {
-                        if (Open)
-                        {
-                            Open = false;
-
-                            Application.Current.Dispatcher.Invoke(() =>
-                            {
-                                CloseEvent(true, parse["ErrorType"].ToString());
-                            });
-                        }
-                    }
-                    else if (parse["Maze"] != null)
-                    {
-                        if (Open)
-                        {
-                            Open = false;
-
-                            Application.Current.Dispatcher.Invoke(() =>
-                            {
-                                CloseEvent(false, "Got Maze");
-
-                                Maze m = Maze.FromJSON(e.PropertyName);
-                                // Open the MultiMaze
-                            });
-
-
-                        }
-                    }
-                }
             }
         }
 
+
         public void StartGameClicked(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                CloseEvent(false, "");
+            });
+            model.StartMaze(Name, Rows, Columns);
+        }
+
+        public void JoinGameClicked(string inputName)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                CloseEvent(false, "");
+            });
+            model.JoinGame(inputName);
         }
     }
 }

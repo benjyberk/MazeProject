@@ -38,5 +38,10 @@ namespace MazeGameDesktop
         {
             vm.OpenSinglePlayer();
         }
+
+        private void MultiPlayerClick(object sender, RoutedEventArgs e)
+        {
+            vm.OpenMultiPlayer();
+        }
     }
 }

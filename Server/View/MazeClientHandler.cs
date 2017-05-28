@@ -29,7 +29,7 @@ namespace Server.View
                     try
                     {
                         string commandLine = reader.ReadLine();
-                        Console.WriteLine("Got command: {0}", commandLine);
+                        Console.WriteLine("Got command from {0}: {1}", client.GetHashCode(), commandLine);
                         result = control.ExecuteCommand(commandLine, client);
                         // If there is a message to be sent back to the client after the
                         // command, then send it.
@@ -37,9 +37,13 @@ namespace Server.View
                         {
                             if (!result.keepOpen)
                             {
+                                string newResult = result.resultString.Replace("\n",String.Empty);
+                                newResult = newResult.Replace("\r", String.Empty);
+                                result.resultString = newResult;
                                 result.resultString += "XXX";
+                                result.resultString += '\n';
                             }
-                            Debug.WriteLine(result.resultString);
+                            Console.WriteLine("Sending back to {0}: {1}", client.GetHashCode(), result.resultString);
                             writer.Write(result.resultString);
                             writer.Flush();
                         }

@@ -1,4 +1,7 @@
-﻿using MazeGameDesktop.NewSingleplayer;
+﻿using MazeGameDesktop.NewMultiplayer.Model;
+using MazeGameDesktop.NewMultiplayer.View;
+using MazeGameDesktop.NewMultiplayer.ViewModel;
+using MazeGameDesktop.NewSingleplayer;
 using MazeGameDesktop.NewSingleplayer.Model;
 using MazeGameDesktop.NewSingleplayer.ViewModel;
 using System;
@@ -13,7 +16,10 @@ namespace MazeGameDesktop.MainScreen
     {
         public void OpenMultiPlayer()
         {
-            throw new NotImplementedException();
+            INewMultiModel multiMod = new NewMultiMazeModel();
+            INewMultiViewModel multiVM = new NewMultiViewModel(multiMod);
+            NewMultiplayerWindow multi = new NewMultiplayerWindow(multiVM);
+            multi.Show();
         }
 
         public void OpenSettings()

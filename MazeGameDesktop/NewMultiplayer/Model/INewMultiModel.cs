@@ -7,13 +7,16 @@ using System.Threading.Tasks;
 
 namespace MazeGameDesktop.NewMultiplayer.Model
 {
+    public delegate void ServerUpdated(string update);
     interface INewMultiModel : INotifyPropertyChanged
     {
+        event ServerUpdated ServerMessageEvent;
         int Rows { set; get; }
         int Columns { set; get; }
         void UpdateDefaultValues();
         void Stop();
-        void GenerateMaze(string name, int rows, int cols);
+        void StartMaze(string name, int rows, int cols);
         void JoinGame(string name);
+        void GetList();
     }
 }

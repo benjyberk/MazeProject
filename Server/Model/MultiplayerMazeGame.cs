@@ -66,8 +66,11 @@ namespace Server.Model
             {
                 NetworkStream stream = player.Key.GetStream();
                 StreamWriter writer = new StreamWriter(stream);
-                writer.WriteLine(maze.toJSON());
+                string response = maze.toJSON().Replace("\r", String.Empty);
+                response = response.Replace("\n", String.Empty);
+                writer.WriteLine(response);
                 writer.Flush();
+                Console.WriteLine("Sending back to {0}: {1} ", player.Key.GetHashCode(), response);
                 // The StreamWriters are saved for the future
                 playerConnections.Add(player.Key, writer);
             }
@@ -109,10 +112,13 @@ namespace Server.Model
             JObject playerAlert = new JObject();
             playerAlert["Name"] = maze.name;
             playerAlert["Direction"] = direction;
+            string message = playerAlert.ToString();
+            message = message.Replace("\n", String.Empty);
+            message = message.Replace("\r", String.Empty);
             // We get the stream (saved from previously) to send the other player
             TcpClient other = GetOtherPlayer(mover);
             // We send the message
-            playerConnections[other].Write(playerAlert.ToString() + '\n');
+            playerConnections[other].WriteLine(message);
             playerConnections[other].Flush();
         }
 

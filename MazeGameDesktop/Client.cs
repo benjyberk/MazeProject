@@ -28,12 +28,14 @@ namespace MazeGameDesktop
         private NetworkStream stream;
         private StreamReader reader;
         private StreamWriter writer;
+        public bool ReopenFlag;
 
         /// <summary>
         /// The constructor reads from app.config the required settings
         /// </summary>
         public Client()
         {
+            ReopenFlag = false;
             running = false;
             SetPortAndIP();
         }
@@ -52,6 +54,7 @@ namespace MazeGameDesktop
         /// </summary>
         public void stop()
         {
+            ReopenFlag = false;
             if (running)
             {
                 running = false;
@@ -94,48 +97,57 @@ namespace MazeGameDesktop
             // It stops when the server closes the connection
             Task listenTask = new Task(() =>
             {
-                try
-                {
-                    client = new TcpClient();
-                    client.Connect(ip);
-                }
-                catch
-                {
-                    Debug.WriteLine("Error at socket connect");
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(Error.makeError("Socket Error - Closed")));
-                    return;
-                }
-                running = true;
-                stream = client.GetStream();
-                reader = new StreamReader(stream);
-                writer = new StreamWriter(stream);
-
-                string result = null;
-                string finalResult = null;
-
                 do
                 {
                     try
                     {
-                        result = reader.ReadToEnd();
-                        // When readline returns null, the server has closed the socket
-                        if (result != null)
-                        {
-                            if (result.EndsWith("XXX"))
-                            {
-                                finalResult = result.TrimEnd('X');
-                                running = false;
-                            }
-                            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(finalResult));
-                        }
+                        client = new TcpClient();
+                        client.Connect(ip);
                     }
                     catch
                     {
-                        running = false;
-                        break;
+                        Debug.WriteLine("Error at socket connect");
+                        ReopenFlag = false;
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(Error.makeError("Error at socket connect")));
+                        return;
                     }
-                } while (result != null && running);
+                    stream = client.GetStream();
+                    reader = new StreamReader(stream);
+                    writer = new StreamWriter(stream);
 
+                    string result = null;
+                    running = true;
+                    do
+                    {
+                        try
+                        {
+                            Debug.WriteLine("Client Waiting For Response");
+                            result = reader.ReadLine();
+                            // When readline returns null, the server has closed the socket
+                            if (result != null)
+                            {
+                                string finalResult = null;
+                                if (result.EndsWith("XXX"))
+                                {
+                                    finalResult = result.TrimEnd('X');
+                                    result = null;
+                                } else
+                                {
+                                    finalResult = result;
+                                }
+                                Debug.WriteLine("Client got result {0}", finalResult, "");
+                                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(finalResult));
+                                
+                            }
+                        }
+                        catch
+                        {
+                            break;
+                        }
+                    } while (result != null && running);
+                } while (ReopenFlag);
+                Debug.WriteLine("Client Closing");
+                running = false;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(Error.makeError("Socket Closed")));
                 reader.Dispose();
                 writer.Dispose();

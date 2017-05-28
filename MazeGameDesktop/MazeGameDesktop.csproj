@@ -74,6 +74,13 @@
     <Compile Include="MazeDisplay.xaml.cs">
       <DependentUpon>MazeDisplay.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MultiplayerMazeWindow\Model\IMultiplayerWindowModel.cs" />
+    <Compile Include="MultiplayerMazeWindow\Model\MultiplayerWindowModel.cs" />
+    <Compile Include="MultiplayerMazeWindow\ViewModel\IMultiplayerViewModel.cs" />
+    <Compile Include="MultiplayerMazeWindow\ViewModel\MultiplayerViewModel.cs" />
+    <Compile Include="MultiplayerMazeWindow\View\MultiplayerMazeView.xaml.cs">
+      <DependentUpon>MultiplayerMazeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NewMultiplayer\Model\INewMultiModel.cs" />
     <Compile Include="NewMultiplayer\Model\NewMultiMazeModel.cs" />
     <Compile Include="NewMultiplayer\ViewModel\INewMultiViewModel.cs" />
@@ -120,6 +127,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MazeDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MultiplayerMazeWindow\View\MultiplayerMazeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

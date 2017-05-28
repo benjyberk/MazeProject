@@ -26,7 +26,7 @@
             <StackPanel>
                 <Label Content="Benjy's aMazing Game" Foreground="White" HorizontalAlignment="Center" FontFamily="Arial"/>
                 <Button Content="Single Player Game" Margin="5" Padding="3" Click="SinglePlayerClick"/>
-                <Button Content="Multiplayer Game" Margin="5" Padding="3"/>
+                <Button Content="Multiplayer Game" Margin="5" Padding="3" Click="MultiPlayerClick"/>
                 <Button x:Name="SettingsButton" Content="Settings" Margin="5" Padding="3" Click="SettingsButtonClick"/>
             </StackPanel>
         </Border>

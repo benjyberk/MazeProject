@@ -21,10 +21,12 @@ namespace MazeGameDesktop.NewMultiplayer.View
     public partial class NewMultiplayerWindow : Window
     {
         private bool open;
+        private INewMultiViewModel vm;
 
         public NewMultiplayerWindow(INewMultiViewModel vm)
         {
             this.DataContext = vm;
+            this.vm = vm;
             open = true;
             vm.CloseEvent += CloseFunc;
             InitializeComponent();
@@ -49,7 +51,15 @@ namespace MazeGameDesktop.NewMultiplayer.View
                 Console.WriteLine(e.Data);
             }
         }
+
+        private void JoinGame(object sender, RoutedEventArgs e)
+        {
+            if (GameBox.SelectedItem != null)
+            {
+                vm.JoinGameClicked((string)GameBox.SelectedItem);
+            }
+        }
     }
 
 }
-}
+
