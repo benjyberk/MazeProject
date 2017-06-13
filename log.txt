@@ -1,59 +1,90 @@
-* commit cd2adbb3b12236906c75d216de675aba87e1bdf7
-| Author: benjy <benjy_2@hotmail.com>
-| Date:   Sat Apr 22 22:09:58 2017 +0300
-| 
-|     Testing has been performed, unnecessary prints removed.
-| 
-* commit e144fc28717b4612fd05b0fcf8b464c376e07e26
-| Author: benjy <benjy_2@hotmail.com>
-| Date:   Thu Apr 20 20:28:22 2017 +0300
-| 
-|     Multithreaded client support, still being tested
-| 
-* commit 9c260b7f14d780abddae2dfa8aeff50484138d3f
-| Author: benjy <benjy_2@hotmail.com>
-| Date:   Thu Apr 20 11:56:21 2017 +0300
-| 
-|     Created client and began testing it
-| 
-* commit 0351977445e99d5737d1a35d065e4793692a0a92
-| Author: benjy <benjy_2@hotmail.com>
-| Date:   Thu Apr 20 10:54:05 2017 +0300
-| 
-|     First working version of server (with limited commands) - creating client now
-| 
-* commit 052e8b7541662e2f3eadf0e857fb41b9350ea549
-| Author: benjy <benjy_2@hotmail.com>
-| Date:   Wed Apr 19 12:59:54 2017 +0300
-| 
-|     Beginning of MVC split, interfaces and infrastructure exist, but application of them still in development.  View is in a very basic form (continuing on it now).  Model only has some commands implemented.
-| 
-* commit 6ea4470cc1a0091cc2229576ccd9830206197eac
-| Author: benjy <benjy_2@hotmail.com>
-| Date:   Sat Apr 15 21:43:56 2017 +0300
-| 
-|     First working version of part 1 - still untested, some debugging output still exists
-| 
-* commit e1f2d286f34b21b292b1cf45f3e9073dd759bd1d
-| Author: benjy <benjy_2@hotmail.com>
-| Date:   Mon Apr 3 11:31:29 2017 +0300
-| 
-|     beginning of framework, most interfaces set up
-| 
-* commit 3530c2e950051a33f6e5ff48cd45b2c42da030d4
-| Author: benjy <benjy_2@hotmail.com>
-| Date:   Mon Apr 3 09:44:56 2017 +0300
-| 
-|     test commit
-| 
-* commit 41b367ed1e4bc331cacda6383b86f202e62f7d86
-| Author: benjy <benjy@BENJY-LAPTOP>
-| Date:   Mon Apr 3 09:42:29 2017 +0300
-| 
-|     Add project files.
-| 
-* commit ccd47eab705548c4e0707a1bfeb0481c1445f793
-  Author: benjy <benjy@BENJY-LAPTOP>
-  Date:   Mon Apr 3 09:42:26 2017 +0300
-  
-      Add .gitignore and .gitattributes.
+commit 47a1a49ec9967d58fb9366580b81c7e2a2606681
+Author: benjy <benjy_2@hotmail.com>
+Date:   Sun May 28 14:56:29 2017 +0300
+
+    Final commenting performed. Ready for submission.
+
+commit b07f9e152a71622bc86f2f615ce191c6bedf5157
+Author: benjy <benjy_2@hotmail.com>
+Date:   Sun May 28 04:04:41 2017 +0300
+
+    All windows finished. Missing commenting for submission.  Some debug statements remain.  Rainbow colours put into maze design.
+
+commit 41ea695a03de9491ca6c9ea693cb59481b37d798
+Author: benjy <benjy_2@hotmail.com>
+Date:   Wed May 24 19:46:30 2017 +0300
+
+    Majority of work done on 3 out of 4 screens.
+    Doing multiplayer screens.
+
+commit 9ab2d4186ace4f5ef3361238727fa3662c86984a
+Author: benjy <benjy_2@hotmail.com>
+Date:   Mon May 8 10:39:10 2017 +0300
+
+    Most GUIs created, one out of two user controls, working on linking create game to actually opening a game
+
+commit 512632ca223cc1ddef75cae918f2d2d52896b86b
+Author: benjy <benjy_2@hotmail.com>
+Date:   Sun Apr 23 18:45:37 2017 +0300
+
+    Final commenting for submission
+
+commit cd2adbb3b12236906c75d216de675aba87e1bdf7
+Author: benjy <benjy_2@hotmail.com>
+Date:   Sat Apr 22 22:09:58 2017 +0300
+
+    Testing has been performed, unnecessary prints removed.
+
+commit e144fc28717b4612fd05b0fcf8b464c376e07e26
+Author: benjy <benjy_2@hotmail.com>
+Date:   Thu Apr 20 20:28:22 2017 +0300
+
+    Multithreaded client support, still being tested
+
+commit 9c260b7f14d780abddae2dfa8aeff50484138d3f
+Author: benjy <benjy_2@hotmail.com>
+Date:   Thu Apr 20 11:56:21 2017 +0300
+
+    Created client and began testing it
+
+commit 0351977445e99d5737d1a35d065e4793692a0a92
+Author: benjy <benjy_2@hotmail.com>
+Date:   Thu Apr 20 10:54:05 2017 +0300
+
+    First working version of server (with limited commands) - creating client now
+
+commit 052e8b7541662e2f3eadf0e857fb41b9350ea549
+Author: benjy <benjy_2@hotmail.com>
+Date:   Wed Apr 19 12:59:54 2017 +0300
+
+    Beginning of MVC split, interfaces and infrastructure exist, but application of them still in development.  View is in a very basic form (continuing on it now).  Model only has some commands implemented.
+
+commit 6ea4470cc1a0091cc2229576ccd9830206197eac
+Author: benjy <benjy_2@hotmail.com>
+Date:   Sat Apr 15 21:43:56 2017 +0300
+
+    First working version of part 1 - still untested, some debugging output still exists
+
+commit e1f2d286f34b21b292b1cf45f3e9073dd759bd1d
+Author: benjy <benjy_2@hotmail.com>
+Date:   Mon Apr 3 11:31:29 2017 +0300
+
+    beginning of framework, most interfaces set up
+
+commit 3530c2e950051a33f6e5ff48cd45b2c42da030d4
+Author: benjy <benjy_2@hotmail.com>
+Date:   Mon Apr 3 09:44:56 2017 +0300
+
+    test commit
+
+commit 41b367ed1e4bc331cacda6383b86f202e62f7d86
+Author: benjy <benjy@BENJY-LAPTOP>
+Date:   Mon Apr 3 09:42:29 2017 +0300
+
+    Add project files.
+
+commit ccd47eab705548c4e0707a1bfeb0481c1445f793
+Author: benjy <benjy@BENJY-LAPTOP>
+Date:   Mon Apr 3 09:42:26 2017 +0300
+
+    Add .gitignore and .gitattributes.
